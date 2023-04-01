@@ -10,7 +10,7 @@ def sub_xor(state, key):
     lkey = len(key)
 
     if lstate != lkey:
-        raise ValueError("La taille des 2 nombres sont différents.".format)
+        raise ValueError("La taille des 2 nombres sont différents {} != {}.".format(lstate, lkey))
     
     result = str()
 

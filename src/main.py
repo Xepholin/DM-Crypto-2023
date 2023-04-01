@@ -1,12 +1,28 @@
 import utilities as ut
 import encryption as enc
 import decryption as dec
+import MITM
+
+import time
 
 if __name__ == "__main__":
-    vect = [("bb57e6", "000000"), ("739293", "000000"), ("1b56ce", "ffffff"), ("47a929", "d1bd2d")]
+    lm = []
+    lc = []
 
-    for tuple in vect:
-        msg, master = tuple
-        print(msg, master, dec.decrypt(msg, master))
+    t0 = time.time()
+    keys = MITM.generate_all_keys(24)
+    t1 = time.time()
+    print("generer les clés :", t1-t0)
 
-    print("exemple =", ut.bin_to_hex(enc.sub_xor(ut.hex_to_bin("fb54b3"), ut.hex_to_bin("400355"))))
+    t0 = time.time()
+    for key in keys:
+        lm.append(enc.encrypt("ea82ec", key))
+        lc.append(dec.decrypt("4b8784", key))
+    t1 = time.time()
+    print("remplissage de lm et lc :", t1-t0)
+
+    t0 = time.time()
+    lm.sort()
+    lc.sort()
+    t1 = time.time()
+    print("triage lm et lc :", t1-t0)
