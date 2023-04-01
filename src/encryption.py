@@ -37,7 +37,8 @@ def permute(state):
     elif len(state) != 24:
         raise ValueError("La taille de l'état n'est pas valide.")
     
-    array = [0, 6, 12, 18, 1, 7, 13, 19, 2, 8, 14, 20, 3, 9, 15, 21, 4, 10, 16, 22, 5, 11, 17, 23]
+    array = [0, 4, 8, 12, 16, 20, 1, 5, 9, 13, 17, 21, 2, 6, 10, 14, 18, 22, 3, 7, 11, 15, 19, 23]
+
     result = str()
 
     for index in array:
@@ -76,7 +77,7 @@ def cadence(key):
 
     return sub_keys
 
-def encryp(message, master_key):
+def encrypt(message, master_key):
     state = ut.hex_to_bin(message)
     sub_keys = cadence(master_key)
 
