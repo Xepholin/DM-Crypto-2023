@@ -1,17 +1,13 @@
-import utilities as ut
-import encryption as enc
+from utilities import bin_to_hex, hex_to_bin4, hex_to_bin
+from encryption import cadence, sub_xor
 
 def substite_reverse(state):
     sbox = ['5', 'e', 'f', '8', 'c', '1', '2', 'd', 'b', '4', '6', '3', '0', '7', '9', 'a']
-    result = str()
 
-    hexa = ut.bin_to_hex(state)
+    hexa = bin_to_hex(state)
     lhexa = len(hexa)
 
-    for i in range(lhexa):
-        result += ut.hex_to_bin4(sbox[int(hexa[i], 16)])
-
-    return result
+    return "".join(([hex_to_bin4(sbox[int(hexa[i], 16)]) for i in range(lhexa)]))
 
 def permute_reverse(state):
     if type(state) != str:
@@ -21,22 +17,17 @@ def permute_reverse(state):
     
     array = [0, 6, 12, 18, 1, 7, 13, 19, 2, 8, 14, 20, 3, 9, 15, 21, 4, 10, 16, 22 ,5 ,11, 17 ,23]
 
-    result = str()
-
-    for index in array:
-        result += state[index]
-
-    return result
+    return "".join([state[index] for index in array])
 
 def decrypt(message, master_key):
-    state = ut.hex_to_bin(message)
-    sub_keys = enc.cadence(master_key)
+    state = hex_to_bin(message)
+    sub_keys = cadence(master_key)
 
-    state = enc.sub_xor(state, sub_keys[10])
+    state = sub_xor(state, sub_keys[10])
 
     for i in range(9, -1, -1):
         state = permute_reverse(state)
         state = substite_reverse(state)
-        state = enc.sub_xor(state, sub_keys[i])
+        state = sub_xor(state, sub_keys[i])
 
-    return ut.bin_to_hex(state)
+    return bin_to_hex(state)
