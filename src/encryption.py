@@ -62,6 +62,6 @@ def encrypt(message, master_key):
         state = substite(state)
         state = permute(state)
 
-    print(message, master_key, bin_to_hex(sub_xor(state, sub_keys[10])), flush=True)
+    #print(message, master_key, bin_to_hex(sub_xor(state, sub_keys[10])), flush=True)
 
     return bin_to_hex(sub_xor(state, sub_keys[10]))
