@@ -30,4 +30,6 @@ def decrypt(message, master_key):
         state = substite_reverse(state)
         state = sub_xor(state, sub_keys[i])
 
+    print(message, master_key, bin_to_hex(state), flush=True)
+
     return bin_to_hex(state)

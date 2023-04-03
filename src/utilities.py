@@ -5,7 +5,6 @@ def bin4_to_hex(word):
     return hex(int(word, 2))[2:]
 
 def bin_to_hex(word):
-    result = str()
     lword = len(word)
     split = [word[i:i+4] for i in range(0, lword, 4)]
     
