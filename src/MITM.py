@@ -50,11 +50,12 @@ def multi_enc_dec(couple1, couple2, keys_slice):
     m1, c1 = couple1
     m2, c2 = couple2
     
-    manager = Manager()
-    lm1 = manager.list()
-    lc1 = manager.list()
-    lm2 = manager.list()
-    lc2 = manager.list()
+    manager1 = Manager()
+    manager2 = Manager()
+    lm1 = manager1.list()
+    lc1 = manager1.list()
+    lm2 = manager2.list()
+    lc2 = manager2.list()
 
     process_list = []
 
@@ -84,7 +85,8 @@ def multi_enc_dec(couple1, couple2, keys_slice):
 
     print("taille des 2 listes du couple1:", len(lm1), ":", len(lc1))
     print("taille des 2 listes du couple2:", len(lm2), ":", len(lc2))
-    manager.shutdown()
+    manager1.shutdown()
+    manager2.shutdown()
 
     t3 = time()
     print("création des 4 listes: {} sec".format(t3-t2))
