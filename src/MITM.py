@@ -138,7 +138,7 @@ def MITM(couple1, couple2, nb_core):
     chunk_size = int(len(keys) / nb_core)
     keys_slice = chunks(keys, chunk_size)
 
-    lm1, lc1, lm2, lc2 = multi_enc_dec(couple1, couple2, keys, nb_core, keys_slice)
+    lm1, lc1, lm2, lc2 = multi_enc_dec(couple1, couple2, keys_slice)
 
     t4 = time()
 

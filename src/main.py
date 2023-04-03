@@ -10,4 +10,4 @@ def save_in_file(save, path):
         file.write('\n'.join('{} : {}'.format(keys[0], keys[1]) for keys in save))
 
 if __name__ == "__main__":
-    found = MITM("ea82ec", "4b8784", 8)
+    found = MITM(("ea82ec", "4b8784"), ("113da5", "8b0074"), 4)
