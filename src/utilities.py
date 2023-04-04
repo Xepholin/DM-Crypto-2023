@@ -1,15 +1,17 @@
+## La fonction convertit "word", un nombre en base 2, puis retourne le même nombre en base 16 (en retirant 0x).
 def bin4_to_hex(word):
     if len(word) != 4:
-        raise ValueError("Le nombre donné ne contient pas exactement 4 bits")
+        raise ValueError("Le nombre donné ne contient pas exactement 4 bits, {}".format(word))
     
     return hex(int(word, 2))[2:]
 
-def bin_to_hex(word):
-    lword = len(word)
-    split = [word[i:i+4] for i in range(0, lword, 4)]
-    
-    return "".join([bin4_to_hex(splited) for splited in split])
 
+## La fonction renvoie une chaîne de caractère, qui est le résultat final du passage d'un nombre en base 2 en base 16.
+def bin_to_hex(word):
+    return ''.join([bin4_to_hex(word[i:i+4]) for i in range(0, len(word), 4)])
+
+
+## Renvoie une partie du nombre en base 2, la partie renvoyée est ("target"x4)e bits suivants
 def bin_tar(word, target):
     if type(word) != str or type(target) != int:
         raise TypeError("Le type de la cible ou du mot n'est pas valide")
@@ -21,15 +23,14 @@ def bin_tar(word, target):
 
     return split
 
-def hex_to_bin4(word):
-    return format(bin(int(word, 16)))[2:].zfill(4)
 
+## La fonction convertit "word", une chaîne de caractère d'un nombre en base 16, pour le renvoyer en base 2
 def hex_to_bin(word):
-    lword = len(word)
+    bin_str = ""
     
-    return "".join([hex_to_bin4(word[i]) for i in range(lword)])
+    for c in word:
+        num = int(c, 16)
+        for i in range(3, -1, -1):
+            bin_str += str((num >> i) & 1)  # Insère les bits les plus à gauche en premier dans "bin_str"
 
-def print_index(word):
-    for i in range(len(word)):
-        print("{}:{} ".format(i, word[i]), end='')
-    print("")
+    return bin_str
