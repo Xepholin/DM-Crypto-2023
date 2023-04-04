@@ -3,3 +3,4 @@ run:
 
 clean:
 	-rm -rf src/__pycache__
+	-rm save.txt
